@@ -96,12 +96,8 @@ bookit/
 - `POST /api/bookings` - Create booking
 - `POST /api/seed` - Seed sample data
 
-## Promo Codes
 
-- `SAVE10` - 10% discount
-- `SAVE20` - 20% discount
-- `FLAT100` - ₹100 flat discount
 
 ## Deployment
 
-Deploy backend to Render/Railway and frontend to Vercel for production use.
+Deploy backend on Render and frontend on Vercel for production use.
