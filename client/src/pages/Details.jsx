@@ -25,7 +25,7 @@ function Details({ setBookingData }) {
 
   const fetchExperienceDetails = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/experiences/${id}`)
+      const response = await fetch(`https://bookit-5863.onrender.com/api/experiences/${id}`)
       const data = await response.json()
       setExperience(data)
       setSelectedDate(data.dates[0])
