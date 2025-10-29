@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build",
-    "preview": "vite preview",
-    "start":"npm run dev"
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",
