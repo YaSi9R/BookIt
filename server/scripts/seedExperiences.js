@@ -31,6 +31,33 @@ const experiences = [
     times: ["05:00 am", "05:30 am", "06:00 am", "06:30 am"],
     maxSlots: 15,
     bookedSlots: 0,
+  },{
+    name: "Boat Cruise",
+    location: "Sundarban",
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&h=300&fit=crop",
+    description:
+      "Curated small-group experience. Certified guide. Safety first with gear included. Enjoy a scenic boat cruise through mangroves.",
+    price: 999,
+    rating: 4.6,
+    reviews: 324,
+    dates: ["Oct 22", "Oct 23", "Oct 24", "Oct 25", "Oct 26"],
+    times: ["06:00 am", "09:00 am", "12:00 pm", "3:00 pm"],
+    maxSlots: 20,
+    bookedSlots: 0,
+  },
+  {
+    name: "Bunjee Jumping",
+    location: "Manali",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=300&fit=crop",
+    description:
+      "Curated small-group experience. Certified guide. Safety first with gear included. Experience the thrill of bungee jumping.",
+    price: 999,
+    rating: 4.9,
+    reviews: 456,
+    dates: ["Oct 22", "Oct 23", "Oct 24", "Oct 25", "Oct 26"],
+    times: ["08:00 am", "10:00 am", "12:00 pm", "2:00 pm"],
+    maxSlots: 5,
+    bookedSlots: 0,
   },
   {
     name: "Coffee Trail",

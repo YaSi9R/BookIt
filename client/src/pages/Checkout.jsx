@@ -1,8 +1,7 @@
-import React from "react"
-
-import { useState } from "react"
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import "./Checkout.css"
+import { FiArrowLeft } from "react-icons/fi"
+
 
 function Checkout({ bookingData, setBookingData }) {
   const navigate = useNavigate()
@@ -15,7 +14,11 @@ function Checkout({ bookingData, setBookingData }) {
   const [loading, setLoading] = useState(false)
 
   if (!bookingData) {
-    return <div className="error">No booking data. Please select an experience first.</div>
+    return (
+      <div className="text-center text-red-500 font-semibold mt-8">
+        No booking data. Please select an experience first.
+      </div>
+    )
   }
 
   const applyPromo = async () => {
@@ -72,7 +75,10 @@ function Checkout({ bookingData, setBookingData }) {
           taxes: bookingData.taxes,
           total: calculateTotal(),
           promoCode,
-          discount: discountType === "percentage" ? bookingData.total * discount : discount,
+          discount:
+            discountType === "percentage"
+              ? bookingData.total * discount
+              : discount,
         }),
       })
 
@@ -92,91 +98,136 @@ function Checkout({ bookingData, setBookingData }) {
   const finalTotal = calculateTotal()
 
   return (
-    <main className="checkout">
-      <button className="back-btn" onClick={() => navigate(-1)}>
-        ← Checkout
+    <main className="max-w-[1200px] mx-auto p-6">
+      <button
+        className="flex items-center justify-center text-[16px] font-semibold text-gray-800 mb-6 hover:text-gray-600 transition"
+        onClick={() => navigate(-1)}
+      >
+        <FiArrowLeft className="mr-2" /> Checkout
       </button>
 
-      <div className="checkout-container">
-        <div className="checkout-left">
-          <div className="form-section">
-            <div className="form-group">
-              <label>Full name</label>
-              <input
-                type="text"
-                placeholder="Your name"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-              />
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_400px] gap-8">
+        {/* Left Section */}
+        <div>
+          <div className="bg-[#EFEFEF] p-6 rounded-lg shadow-md">
+            <div className="mb-4 flex max-sm:flex-col gap-6">
+              <div className="w-1/2 max-sm:w-[220px]">
+                <label className="block text-sm text-[#5B5B5B] mb-2">Full name</label>
+                <input
+                  type="text"
+                  placeholder="Your name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  className="w-full border border-gray-300 bg-[#DDDDDD] text-[#727272] rounded-l px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                />
+              </div>
+
+              <div className="w-1/2 max-sm:w-[220px]">
+                <label className="block text-sm text-[#5B5B5B] mb-2">Email</label>
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full border bg-[#DDDDDD] text-[#727272] border-gray-300 rounded-r px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                />
+              </div>
             </div>
 
-            <div className="form-group">
-              <label>Email</label>
-              <input type="email" placeholder="Your name" value={email} onChange={(e) => setEmail(e.target.value)} />
+
+            <div className="mb-4 ">
+
             </div>
 
-            <div className="promo-section">
+            <div className="flex gap-2 my-4">
               <input
                 type="text"
                 placeholder="Promo code"
                 value={promoCode}
                 onChange={(e) => setPromoCode(e.target.value)}
+                className="flex-1 border bg-[#DDDDDD] text-[#727272] border-gray-300 rounded px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
               />
-              <button className="apply-btn" onClick={applyPromo}>
+              <button
+                className="bg-gray-800 text-white font-semibold text-sm px-4 py-3 rounded hover:bg-gray-600 transition"
+                onClick={applyPromo}
+              >
                 Apply
               </button>
             </div>
 
-            <div className="terms-check">
-              <input type="checkbox" id="terms" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />
-              <label htmlFor="terms">I agree to the terms and safety policy</label>
+            <div className="flex items-center gap-2 mt-4">
+              <input
+                type="checkbox"
+                id="terms"
+                checked={agreed}
+                onChange={(e) => setAgreed(e.target.checked)}
+                className="w-4 h-4 cursor-pointer accent-yellow-400"
+              />
+              <label
+                htmlFor="terms"
+                className="text-[13px] cursor-pointer text-[#5B5B5B]"
+              >
+                I agree to the terms and safety policy
+              </label>
             </div>
           </div>
         </div>
 
-        <div className="checkout-right">
-          <div className="summary-card">
-            <div className="summary-item">
-              <span>Experience</span>
-              <span>{bookingData.experienceName}</span>
-            </div>
-            <div className="summary-item">
-              <span>Date</span>
-              <span>{bookingData.date}</span>
-            </div>
-            <div className="summary-item">
-              <span>Time</span>
-              <span>{bookingData.time}</span>
-            </div>
-            <div className="summary-item">
-              <span>Qty</span>
-              <span>{bookingData.quantity}</span>
-            </div>
-
-            <hr />
-
-            <div className="summary-item">
-              <span>Subtotal</span>
-              <span>₹{bookingData.subtotal}</span>
-            </div>
-            <div className="summary-item">
-              <span>Taxes</span>
-              <span>₹{bookingData.taxes}</span>
-            </div>
-
-            {discount > 0 && (
-              <div className="summary-item discount">
-                <span>Discount</span>
-                <span>-₹{discountType === "percentage" ? Math.round(bookingData.total * discount) : discount}</span>
+        {/* Right Section */}
+        <div>
+          <div className="bg-white p-5 rounded-lg shadow-md sticky top-5">
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-[#656565]">Experience</span>
+                <span className="text-[#161616] text-[16px]">{bookingData.experienceName}</span>
               </div>
-            )}
+              <div className="flex justify-between">
+                <span className="text-[#656565]">Date</span>
+                <span className="text-[#161616] text-[16px]">{bookingData.date}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[#656565]">Time</span>
+                <span className="text-[#161616]  text-[16px]">{bookingData.time}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[#656565]">Qty</span>
+                <span className="text-[#161616] text-[16px]">{bookingData.quantity}</span>
+              </div>
 
-            <div className="total-section">
-              <span>Total</span>
-              <span className="total-amount">₹{finalTotal}</span>
+
+
+              <div className="flex justify-between">
+                <span className="text-[#656565]">Subtotal</span>
+                <span className="text-[#161616] text-[16px]">₹{bookingData.subtotal}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[#656565]">Taxes</span>
+                <span className="text-[#161616] text-[16px]">₹{bookingData.taxes}</span>
+              </div>
+
+              {discount > 0 && (
+                <div className="flex justify-between text-green-600 font-semibold">
+                  <span>Discount</span>
+                  <span>
+                    -₹
+                    {discountType === "percentage"
+                      ? Math.round(bookingData.total * discount)
+                      : discount}
+                  </span>
+                </div>
+              )}
             </div>
 
-            <button className="pay-btn" onClick={handlePayment} disabled={loading}>
+            <div className="flex justify-between font-semibold text-base mt-4 pt-3 border-t border-gray-200">
+              <span>Total</span>
+              <span className="text-red-600">₹{finalTotal}</span>
+            </div>
+
+            <button
+              className="w-full bg-yellow-400 hover:bg-yellow-300 font-semibold py-3 rounded mt-4 transition disabled:opacity-60 disabled:cursor-not-allowed"
+              onClick={handlePayment}
+              disabled={loading}
+            >
               {loading ? "Processing..." : "Pay and Confirm"}
             </button>
           </div>
