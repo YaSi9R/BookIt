@@ -14,7 +14,7 @@ export const ExperienceProvider = ({ children }) => {
 
   const fetchExperiences = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/experiences")
+      const response = await fetch("https://bookit-5863.onrender.com/api/experiences")
       const data = await response.json()
       setExperiences(data)
       setFilteredExperiences(data)
